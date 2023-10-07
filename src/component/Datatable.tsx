@@ -2,6 +2,10 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
+import { deleteBook } from "../redux/slices/BookSlice";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+
 interface BookProps {
 	rows: any;
 	bookId: number;
@@ -10,6 +14,7 @@ interface BookProps {
 
 const Datatable: React.FC<BookProps> = ({ rows, bookId, setBookId }) => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const columns: GridColDef[] = [
 		{ field: "id", headerName: "ID", width: 90 },
@@ -17,6 +22,7 @@ const Datatable: React.FC<BookProps> = ({ rows, bookId, setBookId }) => {
 			field: "title",
 			headerName: "Title",
 			width: 250,
+
 		},
 		{
 			field: "author",
@@ -67,8 +73,11 @@ const Datatable: React.FC<BookProps> = ({ rows, bookId, setBookId }) => {
 							width="20"
 							height="20"
 							fill="red"
-							className="ml-2"
-							onClick={() => setBookId(params?.row?.id)}
+							className="ml-2 cursor-pointer"
+							onClick={async () => {
+								await dispatch(deleteBook(params.row.id))
+								toast.success("Book deleted")
+							}}
 							viewBox="0 0 25.6 25.6"
 							xmlns="http://www.w3.org/2000/svg"
 						>
