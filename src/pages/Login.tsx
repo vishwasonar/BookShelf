@@ -32,19 +32,27 @@ const Login: React.FC = () => {
 	}, []);
 
 	const handleLogin = (values: typeof initialValues) => {
+		console.log("values: ", values);
 		let user = JSON.parse(localStorage.getItem("user") || "{}");
+		console.log("user: ", user);
 		let existingUser = {};
-		if (Object.keys(user).length === 0) {
+		if (
+			Object.keys(user).length === 0 ||
+			!user?.find((i: any) => i.email === values.email)
+		) {
 			toast.error("User does not exist. Please Signup");
 		} else if (Object.keys(user).length > 0) {
 			existingUser = user?.find(
 				(i: any) =>
 					i.email === values.email && i.password === values.password
 			);
+			console.log("existingUser: ", existingUser);
 			if (existingUser) {
 				toast.success("Login Success");
 				navigate("/dashboard");
 				localStorage.setItem("isUserLoggedIn", "true");
+			} else {
+				console.log("hello");
 			}
 		} else {
 			toast.error("Invalid Email or Password");
@@ -107,6 +115,7 @@ const Login: React.FC = () => {
 													id="password"
 													autoComplete="current-password"
 												/>
+
 												{DisplayFormError(
 													errors.password
 												)}
