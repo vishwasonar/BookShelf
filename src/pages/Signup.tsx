@@ -102,7 +102,7 @@ const Signup: React.FC = () => {
 													name="email"
 													autoComplete="email"
 													autoFocus
-													// onBlur={handleBlur}
+												// onBlur={handleBlur}
 												/>
 												{DisplayFormError(errors.email)}
 
@@ -143,7 +143,7 @@ const Signup: React.FC = () => {
 												<Button
 													type="submit"
 													fullWidth
-													variant="contained"
+													className="blue-button text-white"
 													sx={{ mt: 3, mb: 2 }}
 												>
 													Sign Up

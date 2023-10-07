@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../component/Navbar";
 import Datatable from "../component/Datatable";
-import Button from "@mui/material/Button";
 import { useSelector } from "react-redux";
 
 const BookDashboard: React.FC = () => {
@@ -17,15 +16,9 @@ const BookDashboard: React.FC = () => {
 		navigate("/dashboard");
 	};
 
-	const [bookData, setBookData] = useState<any>(null);
 	const [bookId, setBookId] = useState<number>(0);
 
 	const books = useSelector((state: any) => state.BookSliceReducer);
-
-
-	useEffect(() => {
-		setBookData(books);
-	}, []);
 
 	return (
 		<div>

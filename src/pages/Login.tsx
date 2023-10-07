@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Link } from "react-router-dom";
@@ -27,14 +27,8 @@ const Login: React.FC = () => {
 
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		let user = JSON.parse(localStorage.getItem("user") || "{}");
-	}, []);
-
 	const handleLogin = (values: typeof initialValues) => {
-		console.log("values: ", values);
 		let user = JSON.parse(localStorage.getItem("user") || "{}");
-		console.log("user: ", user);
 		let existingUser = {};
 		if (
 			Object.keys(user).length === 0 ||
@@ -46,13 +40,13 @@ const Login: React.FC = () => {
 				(i: any) =>
 					i.email === values.email && i.password === values.password
 			);
-			console.log("existingUser: ", existingUser);
+
 			if (existingUser) {
 				toast.success("Login Success");
 				navigate("/dashboard");
 				localStorage.setItem("isUserLoggedIn", "true");
 			} else {
-				console.log("hello");
+
 			}
 		} else {
 			toast.error("Invalid Email or Password");
@@ -138,7 +132,7 @@ const Login: React.FC = () => {
 												<Button
 													type="submit"
 													fullWidth
-													variant="contained"
+													className="blue-button"
 													sx={{ mt: 3, mb: 2 }}
 												>
 													Login

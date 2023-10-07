@@ -1,11 +1,14 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 interface Props {
 	handleLogout: () => void;
 	handleHomePage: () => void;
 }
 const Navbar: React.FC<Props> = ({ handleLogout, handleHomePage }) => {
+	const location = useLocation()
+
+
 	return (
 		<div>
 			<nav
@@ -20,6 +23,14 @@ const Navbar: React.FC<Props> = ({ handleLogout, handleHomePage }) => {
 						Book Shelf
 					</span>
 					<div className="flex items-center">
+						{location?.pathname !== "/dashboard" && (
+							<span
+								onClick={handleHomePage}
+								className="text-sm cursor-pointer text-blue-600 dark:text-blue-500 mr-3 hover:underline"
+							>
+								Dashboard
+							</span>
+						)}
 						<span
 							onClick={handleLogout}
 							className="text-sm cursor-pointer text-blue-600 dark:text-blue-500 hover:underline"
@@ -27,6 +38,7 @@ const Navbar: React.FC<Props> = ({ handleLogout, handleHomePage }) => {
 							Logout
 						</span>
 					</div>
+
 				</div>
 			</nav>
 		</div>

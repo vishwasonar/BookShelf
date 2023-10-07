@@ -8,3 +8,10 @@
 html{
   background-color: azure;
 }
+
+.blue-button{
+	background-color: #0f172a !important;
+	color: azure !important;
+}
+
+.blue-link{}

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { Link } from "react-router-dom";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -201,7 +199,7 @@ const AddEditBook: React.FC = () => {
 													<Button
 														type="submit"
 														fullWidth
-														variant="contained"
+														className="blue-button"
 														sx={{ mt: 3, mb: 2 }}
 													>
 														{id.id ? 'Edit Book' : 'Add Book'}
