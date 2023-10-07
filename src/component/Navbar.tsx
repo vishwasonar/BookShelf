@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 
 interface Props {
 	handleLogout: () => void;
+	handleHomePage: () => void;
 }
-const Navbar: React.FC<Props> = ({ handleLogout }) => {
+const Navbar: React.FC<Props> = ({ handleLogout, handleHomePage }) => {
 	return (
 		<div>
 			<nav
@@ -12,7 +13,10 @@ const Navbar: React.FC<Props> = ({ handleLogout }) => {
 				style={{ background: "#191927" }}
 			>
 				<div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
-					<span className="self-center text-2xl font-semibold whitespace-nowrap text-white dark:text-white">
+					<span
+						onClick={handleHomePage}
+						className="self-center cursor-pointer text-2xl font-semibold whitespace-nowrap text-white dark:text-white"
+					>
 						Book Shelf
 					</span>
 					<div className="flex items-center">
