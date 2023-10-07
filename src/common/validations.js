@@ -30,3 +30,14 @@ export const DisplayFormError = (error) => {
 		</div>
 	);
 };
+
+export const AddEditBookValidations = () => {
+	return Yup.object({
+		title: Yup.string().required("Please enter title"),
+		author: Yup.string().required("Please enter author's name"),
+		genre: Yup.string().required("Please enter genre"),
+		publication_year: Yup.number().required(
+			"Please enter publication_year"
+		),
+	});
+};
