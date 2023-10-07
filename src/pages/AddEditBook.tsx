@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Link } from "react-router-dom";
@@ -13,13 +13,22 @@ import {
 	AddEditBookValidations,
 	DisplayFormError,
 } from "../common/validations";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../component/Navbar";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { addBook } from "../redux/slices/BookSlice";
+import { addBook, editBook } from "../redux/slices/BookSlice";
 
 const AddEditBook: React.FC = () => {
+
+	interface BookType {
+		id: number
+		title: string,
+		author: string,
+		genre: string,
+		publication_year: number
+	}
+
 	const defaultTheme = createTheme();
 	const navigate = useNavigate();
 
@@ -28,12 +37,24 @@ const AddEditBook: React.FC = () => {
 		navigate("/");
 	};
 
-	const [book, setBook] = useState([]);
+	const [editBookData, setEditBookData] = useState<BookType | null>(null);
 
 	const bookData = useSelector(
 		(state: any) => state.BookSliceReducer.bookData
 	);
-	
+
+	const id = useParams();
+	const getEditBookData = () => {
+		let editBook =
+			bookData &&
+			bookData?.find((item: BookType) => item.id.toString() === id.id);
+
+		setEditBookData(editBook);
+	};
+
+	useEffect(() => {
+		getEditBookData();
+	}, []);
 
 	const handleHomePage = () => {
 		navigate("/dashboard");
@@ -47,25 +68,32 @@ const AddEditBook: React.FC = () => {
 	}
 
 	const initialValues: AddEditBookValues = {
-		title: "",
-		author: "",
-		genre: "",
-		publication_year: 2023,
+		title: editBookData ? editBookData?.title : "",
+		author: editBookData ? editBookData?.author : "",
+		genre: editBookData ? editBookData?.genre : "",
+		publication_year: editBookData ? editBookData?.publication_year : 2023
 	};
 
 	const dispatch = useDispatch();
 
 	const AddEditBook = async (values: typeof initialValues) => {
-		
-		let addBookValues = {
-			id: bookData[bookData.length - 1]?.id + 1,
+		let addEditBookValues = {
+			id: editBookData ? editBookData.id : bookData[bookData.length - 1]?.id + 1,
 			title: values.title,
 			author: values.author,
 			genre: values.genre,
 			publication_year: values.publication_year,
 		};
-		await dispatch(addBook(addBookValues));
-		toast.success("Book Added");
+		
+		if (id.id) {
+			await dispatch(editBook(addEditBookValues))
+			toast.success("Book Edited");
+		}
+		else {
+
+			await dispatch(addBook(addEditBookValues));
+			toast.success("Book Added");
+		}
 		navigate("/dashboard");
 	};
 
@@ -89,10 +117,11 @@ const AddEditBook: React.FC = () => {
 							className="w-full shadow-xl p-5 border bg-blueGray"
 						>
 							<Typography component="h1" variant="h5">
-								Add Book
+								{id.id ? 'Edit Book' : 'Add Book'}
 							</Typography>
 							<div className="w-full">
 								<Formik
+									enableReinitialize={true}
 									initialValues={initialValues}
 									onSubmit={AddEditBook}
 									validationSchema={AddEditBookValidations}
@@ -175,7 +204,7 @@ const AddEditBook: React.FC = () => {
 														variant="contained"
 														sx={{ mt: 3, mb: 2 }}
 													>
-														Add Book
+														{id.id ? 'Edit Book' : 'Add Book'}
 													</Button>
 												</Box>
 											</form>

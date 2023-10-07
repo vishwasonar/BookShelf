@@ -21,7 +21,7 @@ const BookDashboard: React.FC = () => {
 	const [bookId, setBookId] = useState<number>(0);
 
 	const books = useSelector((state: any) => state.BookSliceReducer);
-	console.log("books: ", books);
+
 
 	useEffect(() => {
 		setBookData(books);

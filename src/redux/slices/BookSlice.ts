@@ -99,7 +99,8 @@ const BookSlice = createSlice({
 		addBook: (state, action: PayloadAction<Book>) => {
 			state.bookData.push(action.payload);
 		},
-		updateBook: (state, action: PayloadAction<Book>) => {
+		editBook: (state, action: PayloadAction<Book>) => {
+
 			const index = state.bookData.findIndex(
 				(book) => book.id === action.payload.id
 			);
@@ -118,7 +119,7 @@ const BookSlice = createSlice({
 	},
 });
 
-export const { addBook, updateBook, deleteBook, setCurrentPage } =
+export const { addBook, editBook, deleteBook, setCurrentPage } =
 	BookSlice.actions;
 
 export const BookSliceReducer = BookSlice.reducer;

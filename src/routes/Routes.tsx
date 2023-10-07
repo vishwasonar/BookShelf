@@ -30,7 +30,7 @@ function RoutesFile() {
 						}
 					></Route>
 					<Route
-						path="/addbook/:id"
+						path="/editbook/:id"
 						element={
 							<ProtectedRoutes>
 								<AddBook />
