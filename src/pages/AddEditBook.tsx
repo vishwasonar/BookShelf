@@ -89,8 +89,9 @@ const AddEditBook: React.FC = () => {
 	const dispatch = useDispatch();
 
 	const AddEditBook = async (values: typeof initialValues) => {
+		let id = bookData && bookData.length ? bookData[bookData.length - 1]?.id + 1 : 1
 		let addEditBookValues = {
-			id: editBookData ? editBookData.id : bookData[bookData.length - 1]?.id + 1,
+			id: editBookData ? editBookData.id : id,
 			title: values.title,
 			author: values.author,
 			genre: values.genre,

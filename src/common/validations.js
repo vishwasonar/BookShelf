@@ -36,8 +36,8 @@ export const AddEditBookValidations = () => {
 		title: Yup.string().required("Please enter title"),
 		author: Yup.string().required("Please enter author's name"),
 		genre: Yup.string().required("Please enter genre"),
-		publication_year: Yup.number().required(
+		publication_year: Yup.number("Publication year must be a number").required(
 			"Please enter publication year"
-		),
+		).min(4, "Publication year must be valid"),
 	});
 };
