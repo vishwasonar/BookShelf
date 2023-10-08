@@ -52,9 +52,10 @@ const Signup: React.FC = () => {
 							display: "flex",
 							flexDirection: "column",
 							alignItems: "center",
-							boxShadow: " 5px 7px 10px grey",
+							boxShadow: " 5px 5px 10px black",
+
 						}}
-						className="w-full shadow-xl p-5 border bg-blueGray"
+						className="w-full shadow-xl p-5 light:bg-blueGray dark:bg-white"
 					>
 						<Typography component="h1" variant="h5">
 							Sign Up

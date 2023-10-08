@@ -5,6 +5,7 @@ import Datatable from "../component/Datatable";
 import { useSelector } from "react-redux";
 
 const BookDashboard: React.FC = () => {
+	const [bookId, setBookId] = useState<number>(0);
 	const navigate = useNavigate();
 
 	const handleLogout = () => {
@@ -15,8 +16,18 @@ const BookDashboard: React.FC = () => {
 	const handleHomePage = () => {
 		navigate("/dashboard");
 	};
+	const handleCardsPage = () => {
+		navigate("/cards");
+	};
 
-	const [bookId, setBookId] = useState<number>(0);
+	const addBook = () => {
+		navigate(`/addBook`, {
+			state: {
+				page: "/dashboard"
+			}
+		});
+	};
+
 
 	const books = useSelector((state: any) => state.BookSliceReducer);
 
@@ -25,16 +36,33 @@ const BookDashboard: React.FC = () => {
 			<Navbar
 				handleLogout={handleLogout}
 				handleHomePage={handleHomePage}
+				handleCardsPage={handleCardsPage}
 			/>
 			<div className="w-full">
-				<div className="flex justify-start pl-5">
-					<Link
-						to="/addbook"
-						className="text-white mt-5 pl-5 pr-5 pt-1 pb-1 bg-blue-700 rounded"
+
+				<div className="flex justify-center items-center mt-5">
+					<div className="text-center">
+						<p className="flex justfy-center">This is DataGrid component</p>
+					</div>
+					<div className="flex flex-wrap justify-end ml-5">
+						<span
+							onClick={addBook}
+							className="text-white pl-5 cursor-pointer pr-5 pt-1 pb-1 bg-blue-700 rounded"
+						>
+							Add Book
+						</span>
+					</div>
+				</div>
+
+
+				{/* <div className="flex justify-start pl-5">
+					<span
+						onClick={addBook}
+						className="text-white cursor-pointer mt-5 pl-5 pr-5 pt-1 pb-1 bg-blue-700 rounded"
 					>
 						Add Book
-					</Link>
-				</div>
+					</span>
+				</div> */}
 				<div className="p-5">
 					<Datatable
 						rows={books}

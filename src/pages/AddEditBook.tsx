@@ -11,7 +11,7 @@ import {
 	AddEditBookValidations,
 	DisplayFormError,
 } from "../common/validations";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import Navbar from "../component/Navbar";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -19,12 +19,18 @@ import { addBook, editBook } from "../redux/slices/BookSlice";
 
 const AddEditBook: React.FC = () => {
 
+
+	interface propState {
+		page: string;
+	}
+
+
 	interface BookType {
 		id: number
 		title: string,
 		author: string,
 		genre: string,
-		publication_year: number
+		publication_year: any
 	}
 
 	const defaultTheme = createTheme();
@@ -42,6 +48,9 @@ const AddEditBook: React.FC = () => {
 	);
 
 	const id = useParams();
+	const { state } = useLocation();
+
+
 	const getEditBookData = () => {
 		let editBook =
 			bookData &&
@@ -58,6 +67,11 @@ const AddEditBook: React.FC = () => {
 		navigate("/dashboard");
 	};
 
+	const handleCardsPage = () => {
+		navigate("/cards");
+	};
+
+
 	interface AddEditBookValues {
 		title: string;
 		author: string;
@@ -69,7 +83,7 @@ const AddEditBook: React.FC = () => {
 		title: editBookData ? editBookData?.title : "",
 		author: editBookData ? editBookData?.author : "",
 		genre: editBookData ? editBookData?.genre : "",
-		publication_year: editBookData ? editBookData?.publication_year : 2023
+		publication_year: editBookData ? editBookData?.publication_year : ""
 	};
 
 	const dispatch = useDispatch();
@@ -85,14 +99,24 @@ const AddEditBook: React.FC = () => {
 
 		if (id.id) {
 			await dispatch(editBook(addEditBookValues))
+			if (state.page === "/cards") {
+				navigate("/cards");
+			}
+			else {
+				navigate("/dashboard");
+			}
 			toast.success("Book Edited");
 		}
 		else {
-
 			await dispatch(addBook(addEditBookValues));
+			if (state.page === "/cards") {
+				navigate("/cards");
+			}
+			else {
+				navigate("/dashboard");
+			}
 			toast.success("Book Added");
 		}
-		navigate("/dashboard");
 	};
 
 	return (
@@ -100,6 +124,8 @@ const AddEditBook: React.FC = () => {
 			<Navbar
 				handleLogout={handleLogout}
 				handleHomePage={handleHomePage}
+				handleCardsPage={handleCardsPage}
+
 			/>
 			<div>
 				<ThemeProvider theme={defaultTheme}>

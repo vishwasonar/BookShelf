@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AddBook from "../pages/AddEditBook";
 import BookDashboard from "../pages/BookDashboard";
+import CardsPage from "../pages/CardsPage";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import ProtectedRoutes from "./ProtectedRoutes";
@@ -24,6 +25,14 @@ function RoutesFile() {
 						element={
 							<ProtectedRoutes>
 								<AddBook />
+							</ProtectedRoutes>
+						}
+					></Route>
+					<Route
+						path="/cards"
+						element={
+							<ProtectedRoutes>
+								<CardsPage />
 							</ProtectedRoutes>
 						}
 					></Route>

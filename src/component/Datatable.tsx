@@ -56,7 +56,11 @@ const Datatable: React.FC<BookProps> = ({ rows, bookId, setBookId }) => {
 							width="20"
 							onClick={() => {
 								setBookId(params?.row?.id);
-								navigate(`/editbook/${params?.row?.id}`);
+								navigate(`/editbook/${params?.row?.id}`, {
+									state: {
+										page: "/dashboard"
+									}
+								});
 							}}
 							className="cursor-pointer"
 							height="20"

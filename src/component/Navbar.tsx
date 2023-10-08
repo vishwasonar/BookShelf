@@ -4,18 +4,19 @@ import { useLocation } from "react-router-dom";
 interface Props {
 	handleLogout: () => void;
 	handleHomePage: () => void;
+	handleCardsPage: () => void;
 }
-const Navbar: React.FC<Props> = ({ handleLogout, handleHomePage }) => {
+const Navbar: React.FC<Props> = ({ handleLogout, handleHomePage, handleCardsPage }) => {
 	const location = useLocation()
 
 
 	return (
-		<div>
+		<div className="w-full sticky top-0">
 			<nav
-				className="bg-white border-gray-200"
+				className="bg-white border-gray-200 w-full"
 				style={{ background: "#191927" }}
 			>
-				<div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
+				<div className="flex flex-wrap justify-between items-center mx-auto p-4">
 					<span
 						onClick={handleHomePage}
 						className="self-center cursor-pointer text-2xl font-semibold whitespace-nowrap text-white dark:text-white"
@@ -23,17 +24,26 @@ const Navbar: React.FC<Props> = ({ handleLogout, handleHomePage }) => {
 						Book Shelf
 					</span>
 					<div className="flex items-center">
+						{location.pathname !== "/cards" && (
+
+							<span
+								onClick={handleCardsPage}
+								className="text-lg cursor-pointer text-blue-300 dark:text-blue-500 mr-3 hover:underline"
+							>
+								Cards
+							</span>
+						)}
 						{location?.pathname !== "/dashboard" && (
 							<span
 								onClick={handleHomePage}
-								className="text-sm cursor-pointer text-blue-600 dark:text-blue-500 mr-3 hover:underline"
+								className="text-lg cursor-pointer text-blue-300 dark:text-blue-500 mr-3 hover:underline"
 							>
 								Dashboard
 							</span>
 						)}
 						<span
 							onClick={handleLogout}
-							className="text-sm cursor-pointer text-blue-600 dark:text-blue-500 hover:underline"
+							className="text-lg cursor-pointer text-blue-300 dark:text-blue-500 hover:underline"
 						>
 							Logout
 						</span>
